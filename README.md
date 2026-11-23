@@ -22,7 +22,7 @@ Requires Node 18+.
 
 Installed Windows builds check the latest published GitHub Release and download its installer update over HTTPS. `electron-updater` validates the downloaded installer with the SHA-512 digest in the release's `latest.yml`. To publish a release, bump `version` in `package.json`, commit and push the change, then push the matching `v<version>` tag. The `Build and publish Tandem desktop release` workflow builds the NSIS installer and uploads it with `latest.yml` and its blockmap. A source-code push by itself is not an app update.
 
-Builds older than 1.0.2 do not contain the updater. Install a current installer once to switch existing installations to the new release feed. Later Windows releases install through the app. macOS and Linux automatic updates are not configured yet.
+Install the 1.0.0 installer once on existing installations to switch them to the new release feed. Later Windows releases install through the app. macOS and Linux automatic updates are not configured yet.
 
 ## Phone API (HTTPS, self-signed certificate)
 The QR code contains JSON: `{ "v":1, "n":"PC name", "h":"192.168.x.x", "p":48200, "s":"<one-time secret>", "f":"<SHA-256 cert fingerprint>" }`.
