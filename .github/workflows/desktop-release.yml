@@ -1,0 +1,68 @@
+name: Build and publish Tandem desktop release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  windows-release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out release source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Verify tag matches desktop version
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          if ('${{ github.ref_name }}' -ne "v$version") {
+            throw "Release tag ${{ github.ref_name }} does not match desktop version $version"
+          }
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: .
+
+      - name: Build Windows installer and update metadata
+        run: npm run dist -- --win nsis --publish never
+        working-directory: .
+
+      - name: Verify updater files were generated
+        shell: pwsh
+        run: |
+          $dist = 'dist'
+          if (-not (Test-Path "$dist/latest.yml")) { throw 'electron-builder did not generate latest.yml' }
+          $installer = Get-ChildItem $dist -Filter 'Tandem-Setup-*.exe' | Select-Object -First 1
+          if (-not $installer) { throw 'Windows installer was not generated' }
+          if (-not (Test-Path "$dist/win-unpacked/resources/app-update.yml")) { throw 'Packaged app is missing app-update.yml' }
+          if ((Get-Content "$dist/latest.yml" -Raw) -notmatch [regex]::Escape($installer.Name)) {
+            throw 'Update metadata does not point to the generated installer filename'
+          }
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ github.ref_name }}
+          name: Tandem ${{ github.ref_name }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+          make_latest: true
+          overwrite_files: true
+          fail_on_unmatched_files: true
+          files: |
+            dist/Tandem-Setup-*.exe
+            dist/*.blockmap
+            dist/latest.yml

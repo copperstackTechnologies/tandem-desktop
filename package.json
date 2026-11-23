@@ -1,0 +1,65 @@
+{
+  "name": "tandem-desktop",
+  "productName": "Tandem",
+  "version": "1.0.7",
+  "description": "Tandem - Effortless companion between phone and PC over Wi-Fi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/copperstackTechnologies/tandem-desktop.git"
+  },
+  "main": "main.js",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "test": "node test/server.test.js && node test/renderer.test.js",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "@fastify/multipart": "^8.3.0",
+    "bonjour-service": "^1.2.1",
+    "electron-updater": "^6.8.11",
+    "fastify": "^4.28.1",
+    "qrcode": "^1.5.4",
+    "selfsigned": "^2.4.1"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
+    "jsdom": "^24.1.0"
+  },
+  "build": {
+    "appId": "com.tandem.desktop",
+    "productName": "Tandem",
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**",
+      "renderer/**",
+      "assets/**",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png",
+      "artifactName": "Tandem-Setup-${version}.${ext}",
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "copperstackTechnologies",
+          "repo": "tandem-desktop",
+          "releaseType": "release"
+        }
+      ]
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.png",
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png",
+      "category": "Utility"
+    }
+  }
+}

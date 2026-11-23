@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'">
+<title>Tandem Settings</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="settings-app">
+  <aside class="settings-sidebar">
+    <div class="settings-title-wrap">
+      <img class="brand-logo" src="../assets/icon.png" alt="Tandem" width="22" height="22">
+      <div class="settings-title">Settings</div>
+    </div>
+    <button class="settings-nav" id="back-history" type="button">
+      <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/></svg>
+      <span>All saves</span>
+    </button>
+    <button class="settings-nav active" data-tab="general">
+      <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>General</span>
+    </button>
+    <button class="settings-nav" data-tab="folders">
+      <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span>Shared Folders</span>
+    </button>
+    <button class="settings-nav" data-tab="launchers">
+      <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Approved Apps</span>
+    </button>
+    <button class="settings-nav" data-tab="connections">
+      <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+      <span>Connections</span>
+    </button>
+    <button class="settings-nav" data-tab="about">
+      <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span>About</span>
+    </button>
+  </aside>
+
+  <main class="settings-panel">
+    <!-- General Tab -->
+    <div class="tab-pane" id="pane-general">
+      <section class="card">
+        <h2>Save folder</h2>
+        <p class="path" id="folder"></p>
+        <div class="hrow mt10"><button class="btn" id="change">Change…</button><button class="btn" id="open">Open</button></div>
+      </section>
+      <section class="card mt16">
+        <h2>Preferences</h2>
+        <label class="setting" for="sortByType"><span>Sort into Images, Audio, Video and Files folders</span><input type="checkbox" id="sortByType"></label>
+        <label class="setting" for="notify"><span>Show a notification when something arrives</span><input type="checkbox" id="notify"></label>
+        <label class="setting" for="startOnLogin"><span>Start Tandem when I sign in</span><input type="checkbox" id="startOnLogin"></label>
+        <p class="small mut mt6" id="login-note" hidden>Start on sign-in only takes effect in the installed app.</p>
+      </section>
+      <section class="card mt16">
+        <h2>Temporary Drop Zone</h2>
+        <p class="small mut mt6">Files sent temporarily go into Tandem/Review and are automatically deleted after this period.</p>
+        <label class="setting" for="tempRetentionHours"><span>Remove temporary files after</span><select id="tempRetentionHours"><option value="1">1 hour</option><option value="24">24 hours</option><option value="168">7 days</option><option value="720">30 days</option></select></label>
+      </section>
+    </div>
+
+    <!-- Folders Tab -->
+    <div class="tab-pane" id="pane-folders" hidden>
+      <section class="card">
+        <div class="between">
+          <h2>Shared PC Folders (pull to phone)</h2>
+          <button class="btn primary" id="add-folder">+ Add Folder…</button>
+        </div>
+        <p class="small mut mt6">Folders your paired phone is permitted to browse and pull files from. Removing a folder immediately revokes access.</p>
+        <div id="folders-list" class="mt10"></div>
+      </section>
+    </div>
+
+    <!-- Approved Apps Tab -->
+    <div class="tab-pane" id="pane-launchers" hidden>
+      <section class="card">
+        <div class="between">
+          <h2>Approved Apps & Shortcuts</h2>
+          <div class="hrow">
+            <button class="btn primary" id="choose-app-btn">+ Add Installed App…</button>
+            <button class="btn" id="add-launcher">Browse File…</button>
+          </div>
+        </div>
+        <p class="small mut mt6">Applications, files, and scripts your phone can launch remotely or trigger via macros.</p>
+        <div id="launchers-list" class="mt10"></div>
+      </section>
+    </div>
+
+    <!-- Connections Tab (Merged Paired Phones & Connection) -->
+    <div class="tab-pane" id="pane-connections" hidden>
+      <section class="card">
+        <div class="between">
+          <h2>Paired Phones</h2>
+          <div class="hrow"><button class="btn" id="send-phone">Send files to phone</button><button class="btn primary" id="pair">Pair a phone</button></div>
+        </div>
+        <p class="small mut mt6">Phones authorized to connect with this PC via TLS certificate fingerprint verification.</p>
+        <div id="devices" class="mt10"></div>
+      </section>
+
+      <section class="card mt16">
+        <h2>Connection Details</h2>
+        <p class="small mut mt6">Local Network IP Address</p>
+        <p id="addr" class="bold mt6"></p>
+        <p class="small mut mt10">Certificate fingerprint (SHA-256)</p>
+        <p class="path small mt6" id="fp"></p>
+        <p class="small mut mt12">If your phone cannot connect, allow Tandem through the Windows Defender Firewall on private networks.</p>
+        <p class="small mut mt6" id="ver"></p>
+      </section>
+    </div>
+
+    <!-- About Tab (Matches Phone App About Exactly) -->
+    <div class="tab-pane" id="pane-about" hidden>
+      <section class="card">
+        <div class="about-hero">
+          <img class="about-logo" src="../assets/icon.png" alt="Tandem" width="56" height="56">
+          <div>
+            <h2>About Tandem</h2>
+            <p class="bold mt6 fs16">Tandem Desktop</p>
+            <p class="small mut mt6" id="about-ver">Version 1.0.0</p>
+          </div>
+        </div>
+        <p class="mt12">Your private, direct local network companion between your Android phone and PC. Send files, sync clipboard history, control media playback and presentation slides, and remotely manage your PC without cloud services.</p>
+        <div class="hrow mt16">
+          <span class="chip">
+            <svg class="util-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>TLS Encrypted</span>
+          </span>
+          <span class="chip">
+            <svg class="util-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            <span>Local Wi-Fi Only</span>
+          </span>
+        </div>
+      </section>
+
+      <section class="card mt16">
+        <h2>Software Updates</h2>
+        <div class="between mt10">
+          <div>
+            <p class="bold" id="update-status-title">Check for updates</p>
+        <p class="small mut mt6" id="update-status-desc">Check for published Windows desktop releases</p>
+          </div>
+          <button class="btn" id="check-updates-btn">Check Now</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- Installed Apps Modal Dialog -->
+<dialog id="apps-dialog" class="apps-dialog">
+  <div class="between">
+    <h2 class="m0">Choose Installed App</h2>
+    <button class="btn" id="close-apps-dialog" aria-label="Close">
+      <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <p class="small mut mt6">Select an installed application to approve for remote launch:</p>
+  <div class="mt10">
+    <input type="search" id="apps-search" class="w-full" placeholder="Search apps (e.g. Chrome, Notepad)…">
+  </div>
+  <div id="apps-loading" class="mut small mt10">Scanning installed applications…</div>
+  <div id="apps-list-box" class="apps-picker-list mt10" hidden></div>
+  <div class="row mt12">
+    <button class="btn" id="cancel-apps-dialog">Cancel</button>
+  </div>
+</dialog>
+
+<script src="common.js"></script>
+<script src="settings.js"></script>
+</body>
+</html>

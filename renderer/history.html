@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data: blob:; media-src blob:; frame-src blob:; object-src 'none'; style-src 'self'; script-src 'self'">
+<title>Tandem</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="home-sidebar">
+    <div class="brand-header">
+      <div class="brand-title-wrap">
+        <img class="brand-logo" src="../assets/icon.png" alt="Tandem" width="22" height="22">
+        <div class="brand-title">Tandem</div>
+      </div>
+      <div class="status-indicator"><span class="status-dot"></span><span class="status-label">Ready</span></div>
+    </div>
+
+    <div class="sidebar-heading"><span class="sidebar-section-label">Categories</span><span id="sidebar-total">0 total</span></div>
+    <nav id="filters" aria-label="Filter by type"></nav>
+
+    <section class="connected-section" aria-labelledby="connected-title">
+      <div class="sidebar-heading"><span class="sidebar-section-label" id="connected-title">Paired devices</span></div>
+      <div id="devices" class="device-list"></div>
+    </section>
+
+    <div class="side-foot">
+      <div class="storage-summary">
+        <div class="storage-label"><span>Local saves</span><strong id="storage-used">0 B</strong></div>
+        <div class="storage-track"><span id="storage-fill"></span></div>
+      </div>
+      <button class="btn side-action-btn" id="open-folder">
+        <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span>Open downloads folder</span>
+      </button>
+      <button class="btn side-action-btn" id="open-settings">
+        <svg class="util-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09A1.65 1.65 0 0 0 19.4 15z"/></svg>
+        <span>Settings &amp; Preferences</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="home-main">
+    <div id="update-banner" class="update-banner" hidden></div>
+    <section class="saves-content">
+      <div class="content-heading">
+        <div class="bar-title-wrap"><h1 id="title">All saves</h1><span class="pill-badge" id="total-count-badge"></span></div>
+        <label class="bar-search-wrap"><span class="visually-hidden">Search saves</span><input type="search" id="q" placeholder="Search saves (name, link, device)…" aria-label="Search saves"></label>
+        <div class="list-controls">
+          <button class="btn" id="quick-receive">Quick receive</button>
+          <label class="sort-control"><span>Sort:</span><select id="sort"><option value="recent">Recent transfers</option><option value="oldest">Oldest first</option><option value="name">Name</option><option value="size">Size</option></select></label>
+          <button class="view-button active" data-view="list" aria-label="List view" title="List view"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></button>
+          <button class="view-button" data-view="grid" aria-label="Grid view" title="Grid view"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+        </div>
+      </div>
+      <div class="table-head" aria-hidden="true"><span>Name &amp; type</span><span>Size</span><span>Source device</span><span>Actions</span></div>
+      <div id="list"></div>
+    </section>
+  </main>
+</div>
+<dialog id="confirm">
+  <p id="confirm-text"></p>
+  <div class="row"><button class="btn" id="c-cancel">Cancel</button><button class="btn" id="c-hist">Remove from history</button><button class="btn danger" id="c-trash">Also move file to trash</button></div>
+</dialog>
+<dialog id="guest-dialog" class="guest-dialog">
+  <h2>Quick receive</h2>
+  <p class="mut small">Scan this code on a guest device on the same Wi-Fi. The one-time receive link expires in 10 minutes; files are saved to the temporary Review folder.</p>
+  <img id="guest-qr" alt="Quick receive QR code">
+  <p id="guest-url" class="small guest-url"></p>
+  <p id="guest-expiry" class="small mut"></p>
+  <div class="row"><button class="btn" id="guest-close">Close</button></div>
+</dialog>
+<dialog id="preview-dialog" class="preview-dialog">
+  <div class="preview-head"><strong id="preview-title"></strong><button class="btn" id="preview-close">Close</button></div>
+  <img id="preview-image" hidden alt="File preview">
+  <audio id="preview-audio" controls hidden></audio>
+  <video id="preview-video" controls hidden></video>
+  <iframe id="preview-pdf" title="PDF preview" hidden></iframe>
+</dialog>
+<script src="common.js"></script>
+<script src="history.js"></script>
+</body>
+</html>

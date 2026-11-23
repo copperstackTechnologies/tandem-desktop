@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'">
+<title>Pair with Tandem</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+  <div class="pair-brand-wrap">
+    <img src="../assets/icon.png" alt="Tandem" width="32" height="32" class="brand-logo">
+    <h1>Pair with Tandem</h1>
+  </div>
+  <div class="pair">
+    <div class="qr"><img id="qr" alt="Pairing QR code" hidden><span id="qr-msg" class="mut">Preparing…</span></div>
+    <div>
+      <h2>Scan to pair</h2>
+      <ol class="steps"><li>Connect your phone to the same Wi-Fi as this PC</li><li>Open Tandem on your phone</li><li>Tap Scan QR code and point it at this code</li></ol>
+      <p class="small mut mt12" id="where"></p>
+      <p class="status mt16" id="state" role="status"></p>
+      <p class="small mut" id="expiry"></p>
+      <div class="hrow mt16">
+        <button class="btn primary" id="refresh" hidden>New code</button>
+        <button class="btn primary" id="done" hidden>Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="common.js"></script>
+<script src="pair.js"></script>
+</body>
+</html>

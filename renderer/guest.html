@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Send to Tandem</title>
+  <style>
+    :root{color-scheme:light dark;font:16px system-ui,sans-serif}body{margin:0;background:#14171c;color:#eceff2;min-height:100vh;display:grid;place-items:center}.card{width:min(520px,calc(100% - 36px));padding:26px;background:#1c2026;border:1px solid #343b45;border-radius:16px;box-sizing:border-box}h1{margin:0 0 8px;font-size:24px}p{color:#a3acb7;line-height:1.5}input,button{font:inherit}input[type=file]{display:block;width:100%;margin:22px 0}button{border:1px solid #4fb3b3;border-radius:9px;background:#4fb3b3;color:#0b1f1f;padding:10px 16px;font-weight:700}#choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}#choices button{background:#242a32;color:#eceff2;border-color:#4a5562}#status{margin-top:14px;min-height:24px}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Send to Tandem</h1>
+    <p>Your file will be placed in this PC’s temporary Review folder and removed according to the PC owner’s retention setting.</p>
+    <p>Use this link only with someone you trust. It expires automatically.</p>
+    <form id="upload-form"><input id="file" type="file" required><button id="send" type="submit">Send file</button></form>
+    <div id="choices" hidden><strong id="duplicate-name"></strong><button data-action="replace">Replace</button><button data-action="rename">Keep both</button><button data-action="skip">Skip</button></div>
+    <div id="status" role="status"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
